@@ -3,10 +3,6 @@ import { readContacts } from '../utils/readContacts.js';
 import { writeContacts } from '../utils/writeContacts.js';
 
 const generateContacts = async (number) => {
-  if (number <= 0) {
-    return;
-  }
-
   try {
     const buffer = await readContacts();
     const prevContacts = buffer ? JSON.parse(buffer) : [];
@@ -16,11 +12,9 @@ const generateContacts = async (number) => {
     }
 
     const updatedContacts = [...prevContacts, ...generatedContacts];
-
     await writeContacts(JSON.stringify(updatedContacts, null, 2));
-  } catch (err) {
-    console.error(err);
-    throw err;
+  } catch (error) {
+    console.error(error);
   }
 };
 
